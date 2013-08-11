@@ -1361,7 +1361,9 @@ static void setconfig(char *root)
 
 static void setcaption(void)
 {
-  pc_printf("Pawn compiler " VERSION_STR "\tПрава защищены (c) 1997-2006, ITB CompuPhase\nПрименены патчи от Zeex.\nМодификация и перевод ошибок Tracker1,Daniel_Cortez\n\n");
+  pc_printf("Pawn compiler " VERSION_STR "\tАвторские права (c) 1997-2006, ITB CompuPhase\n"\
+			"Применены патчи от Zeex.\n"\
+			"Модификация и перевод ошибок: Tracker1, Daniel_Cortez\n\n");
 }
 
 static void about(void)

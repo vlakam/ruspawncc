@@ -37,17 +37,20 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <GenerateManifest>false</GenerateManifest>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
+      <ExceptionHandling>false</ExceptionHandling>
     </ClCompile>
     <Link>
       <TargetMachine>MachineX86</TargetMachine>
@@ -59,14 +62,20 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Full</Optimization>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <CompileAs>Default</CompileAs>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <OmitFramePointers>true</OmitFramePointers>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <StringPooling>true</StringPooling>
+      <ExceptionHandling>false</ExceptionHandling>
     </ClCompile>
     <Link>
       <TargetMachine>MachineX86</TargetMachine>
@@ -78,33 +87,43 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="lstring.c" />
-    <ClCompile Include="memfile.c" />
-    <ClCompile Include="sc1.c" />
-    <ClCompile Include="sc2.c" />
-    <ClCompile Include="sc3.c" />
-    <ClCompile Include="sc4.c" />
-    <ClCompile Include="sc5.c" />
-    <ClCompile Include="sc6.c" />
-    <ClCompile Include="sc7.c" />
-    <ClCompile Include="scexpand.c" />
-    <ClCompile Include="sci18n.c" />
-    <ClCompile Include="sclist.c" />
-    <ClCompile Include="scmemfil.c" />
-    <ClCompile Include="scstate.c" />
-    <ClCompile Include="scvars.c" />
+    <ClCompile Include="pawncc/lstring.c" />
+    <ClCompile Include="pawncc/memfile.c">
+      <RuntimeLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MultiThreaded</RuntimeLibrary>
+      <InlineFunctionExpansion Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</IntrinsicFunctions>
+      <OmitFramePointers Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</OmitFramePointers>
+      <EnableFiberSafeOptimizations Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</WholeProgramOptimization>
+      <StringPooling Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</StringPooling>
+      <ExceptionHandling Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExceptionHandling>
+    </ClCompile>
+    <ClCompile Include="pawncc/sc1.c" />
+    <ClCompile Include="pawncc/sc2.c" />
+    <ClCompile Include="pawncc/sc3.c" />
+    <ClCompile Include="pawncc/sc4.c" />
+    <ClCompile Include="pawncc/sc5.c" />
+    <ClCompile Include="pawncc/sc6.c" />
+    <ClCompile Include="pawncc/sc7.c" />
+    <ClCompile Include="pawncc/scexpand.c" />
+    <ClCompile Include="pawncc/sci18n.c" />
+    <ClCompile Include="pawncc/sclist.c" />
+    <ClCompile Include="pawncc/scmemfil.c" />
+    <ClCompile Include="pawncc/scstate.c" />
+    <ClCompile Include="pawncc/scvars.c" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="sc5.scp" />
+    <None Include="pawncc/sc5.scp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="lstring.h" />
-    <ClInclude Include="memfile.h" />
-    <ClInclude Include="sc.h" />
-    <ClInclude Include="svnrev.h" />
+    <ClInclude Include="pawncc/lstring.h" />
+    <ClInclude Include="pawncc/memfile.h" />
+    <ClInclude Include="pawncc/sc.h" />
+    <ClInclude Include="pawncc/svnrev.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="libpawnc.rc" />
+    <ResourceCompile Include="pawncc/libpawnc.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

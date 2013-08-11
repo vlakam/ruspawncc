@@ -15,73 +15,73 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lstring.c">
+    <ClCompile Include="pawncc/lstring.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="memfile.c">
+    <ClCompile Include="pawncc/memfile.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="scexpand.c">
+    <ClCompile Include="pawncc/scexpand.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sci18n.c">
+    <ClCompile Include="pawncc/sci18n.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sclist.c">
+    <ClCompile Include="pawncc/sclist.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="scmemfil.c">
+    <ClCompile Include="pawncc/scmemfil.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="scstate.c">
+    <ClCompile Include="pawncc/scstate.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="scvars.c">
+    <ClCompile Include="pawncc/scvars.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sc1.c">
+    <ClCompile Include="pawncc/sc1.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sc2.c">
+    <ClCompile Include="pawncc/sc2.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sc3.c">
+    <ClCompile Include="pawncc/sc3.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sc4.c">
+    <ClCompile Include="pawncc/sc4.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sc5.c">
+    <ClCompile Include="pawncc/sc5.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sc6.c">
+    <ClCompile Include="pawncc/sc6.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sc7.c">
+    <ClCompile Include="pawncc/sc7.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="sc5.scp">
+    <None Include="pawncc/sc5.scp">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="lstring.h">
+    <ClInclude Include="pawncc/lstring.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="memfile.h">
+    <ClInclude Include="pawncc/memfile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sc.h">
+    <ClInclude Include="pawncc/sc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="svnrev.h">
+    <ClInclude Include="pawncc/svnrev.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="libpawnc.rc">
+    <ResourceCompile Include="pawncc/libpawnc.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>

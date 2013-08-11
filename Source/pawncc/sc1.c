@@ -1370,57 +1370,55 @@ static void about(void)
 {
   if (strlen(errfname)==0) {
     setcaption();
-    pc_printf("Usage:   pawncc <filename> [filename...] [options]\n\n");
-    pc_printf("Options:\n");
-    pc_printf("         -A<num>  alignment in bytes of the data segment and the stack\n");
-    pc_printf("         -a       output assembler code\n");
+    pc_printf("Использование:    pawncc <filename> [filename...] [options]\n\n");
+    pc_printf("Опции:\n");
+    pc_printf("         -A<ном>  выравнивание (в байтах) сегмента данных и стека\n");
+    pc_printf("         -a       генерировать ассемблерный код\n");
 #if AMX_COMPACTMARGIN > 2
-    pc_printf("         -C[+/-]  compact encoding for output file (default=%c)\n", sc_compress ? '+' : '-');
+    pc_printf("         -C[+/-]  компактная кодировка выходного файла (по умолч.=%c)\n", sc_compress ? '+' : '-');
 #endif
-    pc_printf("         -c<name> codepage name or number; e.g. 1252 for Windows Latin-1\n");
+    pc_printf("         -c<имя>  имя или номер кодировки, например 1252 для Windows Latin-1\n");
 #if defined dos_setdrive
-    pc_printf("         -Dpath   active directory path\n");
+    pc_printf("         -Dpath   путь к активной папке\n");
 #endif
-    pc_printf("         -d<num>  debugging level (default=-d%d)\n",sc_debug);
-    pc_printf("             0    no symbolic information, no run-time checks\n");
-    pc_printf("             1    run-time checks, no symbolic information\n");
-    pc_printf("             2    full debug information and dynamic checking\n");
-    pc_printf("             3    same as -d2, but implies -O0\n");
-    pc_printf("         -e<name> set name of error file (quiet compile)\n");
+    pc_printf("         -d<ном>  уровень отладки (по умолч.=-d%d)\n",sc_debug);
+    pc_printf("             0    без символьной информации и проверок времени выполнения\n");
+    pc_printf("             1    без символьной информации, с проверками времени выполнения\n");
+    pc_printf("             2    полная отладочная информация и динамические проверки\n");
+    pc_printf("             3    то же самое, что и -d2, но включает в себя -O0\n");
+    pc_printf("         -e<имя>  имя лога ошибок (тихая компиляция)\n");
 #if defined	__WIN32__ || defined _WIN32 || defined _Windows
-    pc_printf("         -H<hwnd> window handle to send a notification message on finish\n");
+    pc_printf("         -H<hwnd> окно для отправления сообщения об окончании компиляции\n");
 #endif
-    pc_printf("         -i<name> path for include files\n");
-    pc_printf("         -l       create list file (preprocess only)\n");
-    pc_printf("         -o<name> set base name of (P-code) output file\n");
-    pc_printf("         -O<num>  optimization level (default=-O%d)\n",pc_optimize);
-    pc_printf("             0    no optimization\n");
-    pc_printf("             1    JIT-compatible optimizations only\n");
-    pc_printf("             2    full optimizations\n");
-    pc_printf("         -p<name> set name of \"prefix\" file\n");
+    pc_printf("         -i<путь> путь к включаемым файлам\n");
+    pc_printf("         -l       создать листинг (только препроцесс)\n");
+    pc_printf("         -o<имя>  базовое имя выходного файла (P-кода)\n");
+    pc_printf("         -O<ном>  уровень оптимизации (по умолч.=-O%d)\n",pc_optimize);
+    pc_printf("             0    без оптимизации\n");
+    pc_printf("             1    только JIT-совместимые оптимизации\n");
+    pc_printf("             2    полная оптимизация\n");
+    pc_printf("         -p<имя>  установить имя \"префиксного\" файла\n");
 #if !defined SC_LIGHT
-    pc_printf("         -r[name] write cross reference report to console or to specified file\n");
+    pc_printf("         -r[name] вывести отчёт в консоль или в указанный файл\n");
 #endif
-    pc_printf("         -S<num>  stack/heap size in cells (default=%d)\n",(int)pc_stksize);
-    pc_printf("         -s<num>  skip lines from the input file\n");
-    pc_printf("         -t<num>  TAB indent size (in character positions, default=%d)\n",sc_tabsize);
-    pc_printf("         -v<num>  verbosity level; 0=quiet, 1=normal, 2=verbose (default=%d)\n",verbosity);
-    pc_printf("         -w<num>  disable a specific warning by its number\n");
-    pc_printf("         -X<num>  abstract machine size limit in bytes\n");
-    pc_printf("         -XD<num> abstract machine data/stack size limit in bytes\n");
-    pc_printf("         -\\       use '\\' for escape characters\n");
-    pc_printf("         -^       use '^' for escape characters\n");
-    pc_printf("         -;[+/-]  require a semicolon to end each statement (default=%c)\n", sc_needsemicolon ? '+' : '-');
-    pc_printf("         -([+/-]  require parantheses for function invocation (default=%c)\n", optproccall ? '-' : '+');
-    pc_printf("         sym=val  define constant \"sym\" with value \"val\"\n");
-    pc_printf("         sym=     define constant \"sym\" with value 0\n");
+    pc_printf("         -S<ном>  размер стека/кучи в ячейках (по умолч.=%d)\n",(int)pc_stksize);
+    pc_printf("         -s<ном>  пропустить строки из входного файла\n");
+    pc_printf("         -t<ном>  размер табуляции (в позициях, по умолч.=%d)\n",sc_tabsize);
+    pc_printf("         -v<ном>  уровень вывода; 0=нет, 1=обычный, 2=выводить всё (по умолч.=%d)\n",verbosity);
+    pc_printf("         -w<ном>  отключить предупреждение по указанному номеру\n");
+    pc_printf("         -X<ном>  лимит размера (в байтах)\n");
+    pc_printf("         -XD<ном> лимит размера данных/стека (в байтах)\n");
+    pc_printf("         -\\      использовать '\\', как управляющий символ\n");
+    pc_printf("         -^       использовать '^', как управляющий символ\n");
+    pc_printf("         -;[+/-]  обязательный знак \";\" после каждого действия (по умолч.=%c)\n", sc_needsemicolon ? '+' : '-');
+    pc_printf("         -([+/-]  обязательные круг. скобки для вызова функций (по умолч.=%c)\n", optproccall ? '-' : '+');
+    pc_printf("         sym=val  объявить константу \"sym\" со значением \"val\"\n");
+    pc_printf("         sym=     объявить константу \"sym\" со значением 0\n");
 #if defined	__WIN32__ || defined _WIN32 || defined _Windows || defined __MSDOS__
-    pc_printf("\nOptions may start with a dash or a slash; the options \"-d0\" and \"/d0\" are\n");
-    pc_printf("equivalent.\n");
+    pc_printf("\nОпции могут начинаться с \"-\" или \"/\"; опции \"-d0\" и \"/d0\" одинаковы.\n");
 #endif
-    pc_printf("\nOptions with a value may optionally separate the value from the option letter\n");
-    pc_printf("with a colon (\":\") or an equal sign (\"=\"). That is, the options \"-d0\", \"-d=0\"\n");
-    pc_printf("and \"-d:0\" are all equivalent.\n");
+    pc_printf("\nОпции со значениями могут отделяться друг от друга знаками \":\" и \"=\".\n");
+    pc_printf("Таким образом, опции \"-d0\", \"-d=0\" и \"-d:0\" абсолютно одинаковы.\n");
   } /* if */
   longjmp(errbuf,3);        /* user abort */
 }

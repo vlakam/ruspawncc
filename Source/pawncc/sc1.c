@@ -708,9 +708,9 @@ cleanup:
         pc_printf("Размер стэка\\кучи:\t\t%8ld байт; ", (long)pc_stksize*sizeof(cell));
         pc_printf("Примерное макс. использование");
         if (recursion)
-          pc_printf(": Неизвестно, из-за рекурсий\n");
+          pc_printf(": Неизвестно из-за рекурсий\n");
         else if ((pc_memflags & suSLEEP_INSTR)!=0)
-          pc_printf(": Неизвестно, из-за использования \"sleep\" \n");
+          pc_printf(": Неизвестно из-за использования \"sleep\" \n");
         else
           pc_printf("=%ld ячеек (%ld байт)\n",stacksize,stacksize*sizeof(cell));
         pc_printf("Всего требуется:%8ld байт\n", (long)hdrsize+(long)code_idx+(long)glb_declared*sizeof(cell)+(long)pc_stksize*sizeof(cell));
@@ -1362,7 +1362,7 @@ static void setconfig(char *root)
 static void setcaption(void)
 {
   pc_printf("Pawn compiler " VERSION_STR "\tАвторские права (c) 1997-2006, ITB CompuPhase\n"\
-			"Применены патчи от Zeex.\n"\
+			"Применены патчи от Zeex, Fabsch.\n"\
 			"Модификация и перевод ошибок: Tracker1, Daniel_Cortez\n\n");
 }
 
@@ -1370,7 +1370,7 @@ static void about(void)
 {
   if (strlen(errfname)==0) {
     setcaption();
-    pc_printf("Использование:    pawncc <filename> [filename...] [options]\n\n");
+    pc_printf("Использование:    pawncc <имя файла> [имя файла...] [опции]\n\n");
     pc_printf("Опции:\n");
     pc_printf("         -A<ном>  выравнивание (в байтах) сегмента данных и стека\n");
     pc_printf("         -a       генерировать ассемблерный код\n");
@@ -1448,6 +1448,9 @@ static void setconstants(void)
     #if defined _I32_MAX
       add_constant("cellmax",_I32_MAX,sGLOBAL,0);
       add_constant("cellmin",_I32_MIN,sGLOBAL,0);
+    #elif LONG_MAX > 2147483647 * 2
+      add_constant("cellmax",INT_MAX,sGLOBAL,0);
+      add_constant("cellmin",INT_MIN,sGLOBAL,0);
     #else
       add_constant("cellmax",LONG_MAX,sGLOBAL,0);
       add_constant("cellmin",LONG_MIN,sGLOBAL,0);
@@ -4523,7 +4526,7 @@ static long max_stacksize(symbol *root,int *recursion)
   int maxparams,numfunctions;
   symbol *sym;
   symbol **symstack;
-  pc_printf("Начат поиск рекурсий\n");
+  //pc_printf("Начат поиск рекурсий\n");
   assert(root!=NULL);
   assert(recursion!=NULL);
   /* count number of functions (for allocating the stack for recursion detection) */

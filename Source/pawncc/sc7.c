@@ -85,7 +85,7 @@ static int pipeidx=0;
 #define CHECK_STGBUFFER(index) if ((int)(index)>=stgmax)  grow_stgbuffer(&stgbuf, &stgmax, (index)+1)
 #define CHECK_STGPIPE(index)   if ((int)(index)>=pipemax) grow_stgbuffer(&stgpipe, &pipemax, (index)+1)
 
-static void grow_stgbuffer(char **buffer, int* curmax, int requiredsize)
+static void grow_stgbuffer(char **buffer, int *curmax, int requiredsize)
 {
   char *p;
   int clear= (*buffer==NULL); /* if previously none, empty buffer explicitly */
@@ -154,11 +154,12 @@ static int rebuffer(char *str)
   if (sc_status==statWRITE) {
     if (pipeidx>=2 && stgpipe[pipeidx-1]=='\0' && stgpipe[pipeidx-2]!='\n')
       pipeidx-=1;                      /* overwrite last '\0' */
+	CHECK_STGPIPE(pipeidx+strlen(str)+1);
     while (*str!='\0') {               /* copy to staging buffer */
-      CHECK_STGPIPE(pipeidx);
+      //CHECK_STGPIPE(pipeidx);
       stgpipe[pipeidx++]=*str++;
     } /* while */
-    CHECK_STGPIPE(pipeidx);
+    //CHECK_STGPIPE(pipeidx);
     stgpipe[pipeidx++]='\0';
   } /* if */
   return TRUE;
@@ -196,16 +197,13 @@ SC_FUNC void stgwrite(const char *st)
     assert(stgidx==0 || stgbuf!=NULL);  /* staging buffer must be valid if there is (apparently) something in it */
     if (stgidx>=2 && stgbuf[stgidx-1]=='\0' && stgbuf[stgidx-2]!='\n')
       stgidx-=1;                       /* overwrite last '\0' */
-	CHECK_STGBUFFER(stgidx+strlen(st)+1);
-    while (*st!='\0') {                /* copy to staging buffer */
-      //CHECK_STGBUFFER(stgidx);
+    CHECK_STGBUFFER(stgidx+strlen(st)+1);
+    while (*st!='\0')                 /* copy to staging buffer */
       stgbuf[stgidx++]=*st++;
-    } /* while */
-    //CHECK_STGBUFFER(stgidx);
     stgbuf[stgidx++]='\0';
   } else {
-    len=(stgbuf!=NULL) ? strlen(stgbuf) : 0;
-    CHECK_STGBUFFER(len+strlen(st)+1);
+    len=(stgbuf!=NULL) ? (int)strlen(stgbuf) : 0;
+    CHECK_STGBUFFER(len+(int)strlen(st)+1);
     strcat(stgbuf,st);
     len=strlen(stgbuf);
     if (len>0 && stgbuf[len-1]=='\n') {
@@ -247,7 +245,7 @@ SC_FUNC void stgout(int index)
       /* there is no sense in re-optimizing if the order of the sub-expressions
        * did not change; so output directly
        */
-      for (idx=0; idx<pipeidx; idx+=strlen(stgpipe+idx)+1)
+      for (idx=0; idx<pipeidx; idx+=(int)strlen(stgpipe+idx)+1)
         filewrite(stgpipe+idx);
     } /* if */
   } /* if */

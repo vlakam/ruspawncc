@@ -308,7 +308,7 @@ void *pc_getpossrc(void *handle)
 {
   static fpos_t lastpos;  /* may need to have a LIFO stack of such positions */
 
-  fgetpos((FILE*)handle,&lastpos);
+  fgetpos((FILE*)handle,&lastpos); //-V530
   return &lastpos;
 }
 
@@ -466,7 +466,7 @@ int pc_compile(int argc, char *argv[])
     set_extension(outfname,".lst",TRUE);
   else
     set_extension(outfname,".asm",TRUE);
-  if (strlen(errfname)!=0)
+  if (errfname[0]!='\0')
     remove(errfname);   /* delete file on startup */
   else if (verbosity>0)
     setcaption();
@@ -4472,11 +4472,11 @@ static long max_stacksize_recurse(symbol **sourcesym,symbol *sym,long basesize,i
       for (stkpos=0; sourcesym[stkpos]!=NULL; stkpos++) {
         if (sym->refer[i]==sourcesym[stkpos]) {   /* recursion detection */
           *recursion=1;
-		  pc_printf("Обнаружена рекурсия в функции %s",sym->name);
+		  pc_printf("Обнаружена рекурсия в функции %s\n",sym->name);
           
         } /* if */
       } /* for */
-	  if(*recursion==1) {pc_printf("\n");goto break_recursion;         /* recursion was detected, quit loop */}
+	  if(*recursion==1) {goto break_recursion;         /* recursion was detected, quit loop */}
       /* add this symbol to the stack */
       sourcesym[stkpos]=sym;
       sourcesym[stkpos+1]=NULL;

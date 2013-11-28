@@ -181,13 +181,19 @@ int main(int argc, char *argv[])
  */
 int pc_printf(const char *message,...)
 {
-  int ret;
+#if defined	__WIN32__ || defined _WIN32 || defined _Windows
   char buff[1024];
+#endif
+  int ret;
   va_list argptr;
 
   va_start(argptr,message);
+#if defined	__WIN32__ || defined _WIN32 || defined _Windows
   CharToOem(message,buff);
   ret=vprintf(buff,argptr);
+#else
+  ret=vprintf(message,argptr);
+#endif
 
   va_end(argptr);
 
@@ -710,7 +716,7 @@ cleanup:
         if (recursion)
           pc_printf(": Неизвестно из-за рекурсий\n");
         else if ((pc_memflags & suSLEEP_INSTR)!=0)
-          pc_printf(": Неизвестно из-за использования \"sleep\" \n");
+          pc_printf(": Неизвестно из-за использования \"sleep\"\n");
         else
           pc_printf("=%ld ячеек (%ld байт)\n",stacksize,stacksize*sizeof(cell));
         pc_printf("Всего требуется:%8ld байт\n", (long)hdrsize+(long)code_idx+(long)glb_declared*sizeof(cell)+(long)pc_stksize*sizeof(cell));
@@ -1399,7 +1405,7 @@ static void about(void)
     pc_printf("             2    полная оптимизация\n");
     pc_printf("         -p<имя>  установить имя \"префиксного\" файла\n");
 #if !defined SC_LIGHT
-    pc_printf("         -r[name] вывести отчёт в консоль или в указанный файл\n");
+    pc_printf("         -r[имя] вывести отчёт в консоль или в указанный файл\n");
 #endif
     pc_printf("         -S<ном>  размер стека/кучи в ячейках (по умолч.=%d)\n",(int)pc_stksize);
     pc_printf("         -s<ном>  пропустить строки из входного файла\n");
